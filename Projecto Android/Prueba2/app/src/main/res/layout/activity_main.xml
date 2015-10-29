@@ -1,0 +1,37 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/degradado1"
+    >
+
+
+
+    <TextView
+        android:text="@string/saludo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/miTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/escribe" />
+    <Button
+        android:id="@+id/miBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pulsar" />
+    <TextView
+        android:id="@+id/miLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/musica"
+        android:id="@+id/botonMusica"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

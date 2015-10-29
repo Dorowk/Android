@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Prueba1</string>
+    <string name="app2_name">Pantalla Saludo</string>
+    <string name="action_settings">Settings</string>
+    <string name="saludo">Prueba de Saludo!</string>
+    <string name="escribe">Introduce TU NOMBRE</string>
+    <string name="pulsar">Pulsa Aqui</string>
+    <string name="volver">VOLVER Actividad Anterior</string>
+    <string name="noNameMsg"> Estoy en la pantalla padre</string>
+    <string name="noNameMsg2"> Estoy en la pantalla 2</string>
+</resources>
