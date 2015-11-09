@@ -1,37 +1,92 @@
 package com.example.mati.listatitulos;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    Titulos[] listaTitulos = new Titulos[] {
+            new Titulos("Titulo 1", "Subtitulo 1"),
+            new Titulos("Titulo 2", "Subtitulo 2"),
+            new Titulos("Titulo 3", "Subtitulo 3"),
+            new Titulos("Titulo 4", "Subtitulo 4"),
+            new Titulos("Titulo 5", "Subtitulo 5"),
+
+    };
+
+    TextView titulo;
+    TextView subtitulo;
+    Spinner spinner;
+    Button boton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spinner = (Spinner)findViewById(R.id.spinner);
+        boton = (Button)findViewById(R.id.button);
+
+        Adaptador adaptador = new Adaptador(this);
+        spinner.setAdapter(adaptador);
+
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mensaje = titulo.getText() +", "+ subtitulo.getText();
+                showToast(mensaje);
+            }
+        });
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public  void showToast(String texto){
+        Toast.makeText(this,texto,Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    class Adaptador extends ArrayAdapter<Titulos> {
+        public Activity principal;
+        public Adaptador(Activity actividad) {
+            super(actividad, R.layout.titulos_layout,listaTitulos);
+            this.principal = actividad;
         }
 
-        return super.onOptionsItemSelected(item);
+
+        @Override
+        public View getDropDownView (int position, View convertView, ViewGroup parent) {
+            return getView(position, convertView, parent);
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater=principal.getLayoutInflater();
+            View columna=inflater.inflate(R.layout.titulos_layout,parent,false);
+
+            titulo=(TextView)columna.findViewById(R.id.textView);
+            titulo.setText(listaTitulos[position].getTitulo());
+
+            subtitulo=(TextView)columna.findViewById(R.id.textView2);
+            subtitulo.setText(listaTitulos[position].getSubtitulo());
+
+            return columna;
+        }
     }
+
+
 }
+
+
