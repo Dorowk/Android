@@ -1,6 +1,7 @@
 package com.example.mati.pcastellano_examen;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,5 @@ public class Factura extends Activity {
             tipo.setText("Local");
         total.setText(costeTotal);
         imagen.setImageResource(idImagen);
-
     }
 }

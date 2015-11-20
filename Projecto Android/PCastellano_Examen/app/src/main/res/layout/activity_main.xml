@@ -92,13 +92,14 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:text="Numero Unidades"
+        android:hint="Numero Unidades"
         android:layout_marginTop="53dp"
         android:layout_below="@+id/checkIngre"
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView"
         android:inputType="number"
-        android:numeric="integer" />
+        android:numeric="integer"
+        />
 
     <Button
         android:layout_width="wrap_content"

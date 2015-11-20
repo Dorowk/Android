@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     TextView precioFinal;
 
     boolean opcionLlevar;
-    int extras, total;
+    int extras, total, idImagen;
 
 
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.setTitle("Pizzeria");
         lista = (Spinner) findViewById(R.id.spinnerLista);
         rg = (RadioGroup) findViewById(R.id.radioGroup);
         local = (RadioButton) findViewById(R.id.radioLocal);
@@ -72,15 +74,50 @@ public class MainActivity extends AppCompatActivity {
         lista.setAdapter(adaptador);
 
        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup group, int idCheck) {
-                if (group.getCheckedRadioButtonId() == R.id.radioLocal)
-                    opcionLlevar = false;
-                if (group.getCheckedRadioButtonId() == R.id.radioLlevar)
-                    opcionLlevar = true;
+           public void onCheckedChanged(RadioGroup group, int idCheck) {
+               if (group.getCheckedRadioButtonId() == R.id.radioLocal)
+                   opcionLlevar = false;
+               if (group.getCheckedRadioButtonId() == R.id.radioLlevar)
+                   opcionLlevar = true;
+           }
+
+
+       });
+        queso.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (queso.isChecked())
+                    extras +=1;
+                else
+                    extras-=1;
             }
-
-
         });
+
+        grande.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (grande.isChecked())
+                    extras +=1;
+                else
+                    extras -=1;
+            }
+        });
+
+        ingrediente.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (ingrediente.isChecked())
+                    extras += 1;
+                else
+                    extras -= 1;
+            }
+        });
+
+
+
+
         calculo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 total = 0;
@@ -91,10 +128,11 @@ public class MainActivity extends AppCompatActivity {
 
         factura.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                operacion();
                 Intent cambio = new Intent(MainActivity.this, Factura.class);
                 Bundle paquete = new Bundle();
 
-                paquete.putInt("IMAGEN",imagen.getId());
+                paquete.putInt("IMAGEN",idImagen);
                 paquete.putString("NOMBRE", nombre.getText().toString());
                 paquete.putString("PRECIO", precio.getText().toString());
                 paquete.putString("EXTRA", String.valueOf(extras));
@@ -110,18 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
     public int operacion(){
         int preciopizza;
-        extras=0;
         int suma;
         int cantidad;
         int total;
 
         preciopizza=Integer.parseInt((String)precio.getText());
-        if (grande.isChecked())
-            extras +=1;
-        if (queso.isChecked())
-            extras +=1;
-        if (ingrediente.isChecked())
-            extras +=1;
+
 
         suma = preciopizza + extras;
         cantidad = Integer.parseInt(unidades.getText().toString());
@@ -131,8 +163,6 @@ public class MainActivity extends AppCompatActivity {
             total *= 1.10;
 
         return  total;
-
-
 
     }
 
@@ -165,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
             imagen=(ImageView)columna.findViewById(R.id.imagenPizza);
             imagen.setImageResource(listaPizza[position].getId());
+            idImagen = listaPizza[position].getId();
 
             return columna;
         }
