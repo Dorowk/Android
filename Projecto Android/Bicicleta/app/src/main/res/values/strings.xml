@@ -1,0 +1,10 @@
+<resources>
+    <string name="hello">Hello World, Solobici!</string>
+    <string name="app_name">Solobici Didáctico</string>
+    <string name="tituloAplicacion">Solobici Didáctico</string>
+    <string name="Jugar">Jugar</string>
+    <string name="Configurar">Configurar</string>
+    <string name="Acercade">Acerca de</string>
+    <string name="Salir">Salir</string>
+    <string name="TextoAcercaDe">Esta aplicación desarrollada por Pablo Castellano</string>
+</resources>

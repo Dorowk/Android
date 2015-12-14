@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:onClick="launchDrawShapes1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Draw Shapes 1" />
+
+    <Button
+        android:onClick="launchDrawShapes2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Draw Shapes 2" />
+
+    <Button
+        android:onClick="transicion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Transicion" />
+    <Button
+        android:onClick="animacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Animacion" />
+
+
+
+
+
+
+</LinearLayout>
