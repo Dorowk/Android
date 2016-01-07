@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity" >
+    <item android:id="@+id/Opcion1"
+        android:title="Dibujo"
+        android:text="Dibujo">
+    </item>
+    <item android:id="@+id/Opcion2"
+        android:title="Acerca de"
+        android:text="AcercaD">
+    </item>
+</menu>

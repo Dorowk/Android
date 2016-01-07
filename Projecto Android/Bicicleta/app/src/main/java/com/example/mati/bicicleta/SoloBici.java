@@ -36,11 +36,12 @@ public class SoloBici extends AppCompatActivity {
         });
         //Boton y escuchador para la pantalla "Salir"
         bSalir = (Button) findViewById(R.id.Boton04);
-        bSalir.setOnClickListener(new View.OnClickListener(){
+        bSalir.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 lanzarSalir();
             }
         });
+    }
 
     //Metodo que activa la pantalla Juego
     public void lanzarJuego(){
@@ -60,6 +61,4 @@ public class SoloBici extends AppCompatActivity {
         finish();
     }
 
-
-    }
 }

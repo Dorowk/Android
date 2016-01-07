@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Coches</string>
+    <string name="action_settings">Settings</string>
+    <string name="AcercaDe"><b>Empresa:</b> Alquiler de coche S.A. <br/> <b>Creador:</b> Pablo Castellano Sánchez </string>
+</resources>

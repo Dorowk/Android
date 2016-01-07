@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nombre"
+        android:id="@+id/textNombre"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textMarca"
+        android:layout_below="@+id/textNombre"
+        android:layout_alignLeft="@+id/textNombre"
+        android:layout_alignStart="@+id/textNombre"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Precio"
+        android:id="@+id/textPrecio"
+        android:layout_below="@+id/textMarca"
+        android:layout_alignLeft="@+id/textMarca"
+        android:layout_alignStart="@+id/textMarca"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imagenPizza"
+        android:src="@drawable/coche1"
+        android:layout_alignBottom="@+id/textPrecio"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_below="@+id/textPrecio"
+        android:layout_alignBottom="@+id/textPrecio"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

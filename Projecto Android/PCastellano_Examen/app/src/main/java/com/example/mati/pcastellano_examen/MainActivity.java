@@ -180,26 +180,36 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater=getLayoutInflater();
-            View columna=inflater.inflate(R.layout.spinner_pizza, null);
+            View columna = convertView;
+            ViewHolder contenedor;
+            if(columna == null) {
+                LayoutInflater inflater = getLayoutInflater();
+                columna = inflater.inflate(R.layout.spinner_pizza, null);
 
-            nombre=(TextView)columna.findViewById(R.id.textNombrePizza);
-            nombre.setText(listaPizza[position].getNombre());
+                contenedor = new ViewHolder();
 
-            descripcion=(TextView)columna.findViewById(R.id.textDescripcion);
-            descripcion.setText(listaPizza[position].getDes());
+                contenedor.nombre = (TextView) columna.findViewById(R.id.textNombrePizza);
+                contenedor.descripcion = (TextView) columna.findViewById(R.id.textDescripcion);
+                contenedor.precio = (TextView) columna.findViewById(R.id.textPrecio);
+                contenedor.imagen = (ImageView) columna.findViewById(R.id.imagenPizza);
+                columna.setTag(contenedor);
 
-            precio=(TextView)columna.findViewById(R.id.textPrecio);
-            precio.setText(String.valueOf(listaPizza[position].getPrecio()));
+            }else {
+                contenedor=(ViewHolder)columna.getTag();}
 
-
-            imagen=(ImageView)columna.findViewById(R.id.imagenPizza);
-            imagen.setImageResource(listaPizza[position].getId());
+            contenedor.nombre.setText(listaPizza[position].getNombre());
+            contenedor.descripcion.setText(listaPizza[position].getDes());
+            contenedor.precio.setText(String.valueOf(listaPizza[position].getPrecio()));
+            contenedor.imagen.setImageResource(listaPizza[position].getId());
             idImagen = listaPizza[position].getId();
 
             return columna;
         }
     }
-
-
+    static class ViewHolder{
+        TextView nombre;
+        TextView descripcion;
+        TextView precio;
+        ImageView imagen;
+    }
 }
