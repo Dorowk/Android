@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox aire,gps,radio;
 
     EditText tiempo;
-    Button calcular,factura;
+    Button calcular,factura,factura2;
 
     ViewHolder holder;
 
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setTitle("Alquiler de Coches");
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
         lista = (Spinner) findViewById(R.id.spinnerLista);
         rg = (RadioGroup) findViewById(R.id.radioGroup);
         sin = (RadioButton) findViewById(R.id.radioSin);
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         tiempo = (EditText)findViewById(R.id.editText);
         calcular = (Button)findViewById(R.id.buttonResultado);
         factura = (Button)findViewById(R.id.buttonFactura);
+        factura2 = (Button)findViewById(R.id.buttonFactura2);
 
         precioFinal = (TextView)findViewById(R.id.textResultado);
 
@@ -141,9 +147,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        factura2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!tiempo.getText().toString().isEmpty()) {
+                    total = operacion();
+                    Factura2 factura = crearFactura2();
+
+                    Intent intent = new Intent(MainActivity.this, Factura2Activity.class);
+                    Bundle bundle = new Bundle();
+
+                    bundle.putParcelable("Factura", factura);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(getApplicationContext(), "Inserta las horas", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -158,6 +183,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Opcion2:
                 Intent acerca = new Intent(this, AcercaDe.class);
                 startActivity(acerca);
+                return true;
+            case R.id.Opcion3:
+                Intent facturas = new Intent(this,ListarFacturaActivity.class);
+                startActivity(facturas);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -174,8 +203,32 @@ public class MainActivity extends AppCompatActivity {
         int aux6 = idImagen;
         boolean aux7 = opcionSeguro;
 
-         return new Factura(aux1,aux2,aux3,aux4,aux5,aux6,aux7);
+        return new Factura(aux1,aux2,aux3,aux4,aux5,aux6,aux7);
     }
+
+    private Factura2 crearFactura2(){
+        String aux1 = holder.marca.getText().toString()+" "+holder.nombre.getText().toString();
+        String aux2 = holder.precio.getText().toString();
+        String aux3 = tiempo.getText().toString();
+        String aux4 = Integer.toString(extras);
+        String aux5 = Integer.toString(total);
+        int aux6 = idImagen;
+        boolean aux7 = opcionSeguro;
+
+        Factura2 factura2 = new Factura2();
+
+        factura2.setModelo(aux1);
+        factura2.setPrecioHoras(aux2);
+        factura2.setTiempo(aux3);
+        factura2.setExtras(aux4);
+        factura2.setTotal(aux5);
+        factura2.setId(aux6);
+
+
+        return  factura2;
+    }
+
+
     private int operacion(){
         int precioHoras,horas,total;
         precioHoras = Integer.parseInt(holder.precio.getText().toString());
@@ -216,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 holder.nombre = (TextView) columna.findViewById(R.id.textNombre);
                 holder.marca = (TextView) columna.findViewById(R.id.textMarca);
                 holder.precio = (TextView) columna.findViewById(R.id.textPrecio);
-                holder.imagen = (ImageView) columna.findViewById(R.id.imagenPizza);
+                holder.imagen = (ImageView) columna.findViewById(R.id.imagenCoche);
 
                 columna.setTag(holder);
             }else{

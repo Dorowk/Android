@@ -1,6 +1,8 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity" >
+    tools:context="com.example.mati.myapplication.MainActivity"
+    >
     <item android:id="@+id/Opcion1"
         android:title="Dibujo"
         android:text="Dibujo">
@@ -8,5 +10,9 @@
     <item android:id="@+id/Opcion2"
         android:title="Acerca de"
         android:text="AcercaD">
+    </item>
+    <item android:id="@+id/Opcion3"
+        android:title="Lista de Facturas"
+        android:text="ListaFacturas">
     </item>
 </menu>

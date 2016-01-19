@@ -11,7 +11,7 @@ public class AcercaDe extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentViciew(R.layout.acercade_layout);
+        setContentView(R.layout.acercade_layout);
 
     }
 

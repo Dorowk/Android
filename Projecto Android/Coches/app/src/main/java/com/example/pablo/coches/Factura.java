@@ -6,12 +6,12 @@ import java.io.Serializable;
  * Created by Pablo on 28/12/2015.
  */
 public class Factura implements Serializable {
-    private String modelo, precioHoras, tiempo, extras, total;
+    private String nombre, precioHoras, tiempo, extras, total;
     private int id;
     private boolean seguro;
 
-    public Factura(String modelo, String precioHoras, String tiempo, String extras, String total, int id, boolean seguro) {
-        this.modelo = modelo;
+    public Factura(String nombre, String precioHoras, String tiempo, String extras, String total, int id, boolean seguro) {
+        this.nombre = nombre;
         this.precioHoras = precioHoras;
         this.tiempo = tiempo;
         this.extras = extras;
@@ -20,8 +20,8 @@ public class Factura implements Serializable {
         this.seguro = seguro;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getNombre() {
+        return nombre;
     }
 
     public String getPrecioHoras() {

@@ -23,11 +23,18 @@
             android:label="Factura">
         </activity>
         <activity
+            android:name=".Factura2Activity"
+            android:label="Factura">
+        </activity>
+        <activity
             android:name=".AcercaDe"
             android:label="AcercaDe">
         </activity>
         <activity android:name=".Imagen"
             android:label="Dibujo">
+        </activity>
+        <activity android:name=".ListarFacturaActivity"
+            android:label="Lista de facturas">
         </activity>
     </application>
 
