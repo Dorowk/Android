@@ -30,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase bd = cliBDh.getWritableDatabase();
 
 
-
         //En caso de abrir de forma correcta la base de datos
-        if (bd!=null) {
+        if (bd != null) {
             //Introducimos 3 clientes de ejemplo
             for (int cont = 1; cont <= 3; cont++) {
                 //Creamos los datos
@@ -106,31 +105,32 @@ public class MainActivity extends AppCompatActivity {
             //Cerramos la base de datos
             bd.close();
         }*/
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                SQLiteDatabase bd = cliBDh.getWritableDatabase();
-                if(bd!=null){
-                    Cursor cursor =bd.rawQuery("SELECT * FROM Clientes", null);
-                    ArrayList<String> lista = new ArrayList<String>();
-                    String text;
-                    cursor.moveToFirst();
-                    do{
-                        text = "Codigo: " + cursor.getInt(0)+" Nombre: "+
-                        cursor.getString(1)+" Telefono: "+cursor.getString(2);
-                        lista.add(text);
-                    }while (cursor.moveToNext());
-                    for (int i=0;i<lista.size();i++){
+            Button button = (Button) findViewById(R.id.button);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    SQLiteDatabase bd = cliBDh.getWritableDatabase();
+                    if (bd != null) {
+                        Cursor cursor = bd.rawQuery("SELECT * FROM Clientes", null);
+                        ArrayList<String> lista = new ArrayList<String>();
+                        String text;
+                        cursor.moveToFirst();
+                        do {
+                            text = "Codigo: " + cursor.getInt(0) + " Nombre: " +
+                                    cursor.getString(1) + " Telefono: " + cursor.getString(2);
+                            lista.add(text);
+                        } while (cursor.moveToNext());
+                        for (int i = 0; i < lista.size(); i++) {
 
-                        Toast.makeText(context,lista.get(i), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, lista.get(i), Toast.LENGTH_SHORT).show();
+                        }
+                        cursor.close();
+                        bd.close();
                     }
-                    cursor.close();
-                    bd.close();
+
+
                 }
-
-
-            }
-        });
-        cliBDh.close();
+            });
+            cliBDh.close();
+        }
     }
 }

@@ -22,15 +22,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Alquiler de    \n     Coches"
+        android:text="Alquiler de      \n   Coches"
         android:id="@+id/textView"
-        android:layout_above="@+id/radioGroup"
+        android:layout_below="@+id/view2"
         android:layout_toStartOf="@+id/imageView"
-        android:layout_marginBottom="54dp" />
+        android:layout_marginTop="42dp" />
 
     <ImageView
-        android:layout_width="250px"
-        android:layout_height="250px"
+        android:layout_width="225px"
+        android:layout_height="225px"
         android:id="@+id/imageView"
         android:src="@drawable/coche"
         android:layout_below="@+id/view2"
@@ -41,19 +41,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinnerLista"
         android:layout_above="@+id/checkGPS"
+        android:layout_marginBottom="30px"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/textResultado" />
+        android:layout_toStartOf="@+id/radioGroup"
+        android:layout_alignLeft="@+id/buttonFactura" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
+        android:id="@+id/radioGroup"
         android:layout_alignStart="@+id/imageView"
-        android:layout_above="@+id/checkGPS"
-        android:id="@+id/radioGroup">
+        android:layout_alignTop="@+id/spinnerLista"
+        android:layout_above="@+id/checkGPS">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -75,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="Aire \n Acondicionado"
         android:id="@+id/checkAire"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="117dp"
         android:layout_below="@+id/imageView"
         android:layout_alignParentStart="true" />
 
@@ -101,7 +102,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText"
         android:hint="Numero de Horas"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="70dp"
         android:inputType="number"
         android:numeric="integer"
         android:layout_below="@+id/checkAire"
@@ -114,8 +115,8 @@
         android:id="@+id/buttonResultado"
         android:layout_marginTop="28dp"
         android:layout_below="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_alignStart="@+id/editText"
+        android:layout_toStartOf="@+id/textResultado" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -132,7 +133,7 @@
         android:text="Factura"
         android:id="@+id/buttonFactura"
         android:layout_below="@+id/textResultado"
-        android:layout_alignStart="@+id/textResultado" />
+        android:layout_toEndOf="@+id/buttonResultado" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

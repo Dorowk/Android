@@ -1,6 +1,9 @@
 package com.example.pablo.coches;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,13 +27,14 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
-    Coche[] listaCoches = new Coche[]{
+    Coche[] listaCoches;
+    /*= new Coche[]{
             new Coche("Megane","Seat",20,R.drawable.coche1),
             new Coche("X-11","Ferrari",100,R.drawable.coche2),
             new Coche("Leon","Seat",30,R.drawable.coche3),
             new Coche("Fiesta","Ford",40,R.drawable.coche4),
             new Coche("600","Ford",5,R.drawable.coche5),
-    };
+    };*/
     TextView  precioFinal;
 
     Spinner lista;
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     boolean opcionSeguro;
     int extras, total, idImagen;
 
+    Context context;
+
 
 
     @Override
@@ -55,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle("Alquiler de Coches");
+        context = this;
+
+        CargarDatos();
+        createAndShowAlertDialog();
+
+        listaCoches = SQLiteCoches.CargarArray(context);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -149,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         });
         factura2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!tiempo.getText().toString().isEmpty()) {
+               /* if (!tiempo.getText().toString().isEmpty()) {
                     total = operacion();
                     Factura2 factura = crearFactura2();
 
@@ -162,10 +174,39 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else
                     Toast.makeText(getApplicationContext(), "Inserta las horas", Toast.LENGTH_SHORT).show();
-
+            */
+                Toast.makeText(context,"Parcelable-Sin Uso-Comentado",Toast.LENGTH_SHORT).show();
             }
         });
 
+
+    }
+    private void CargarDatos(){
+        SQLiteCoches SQH = new SQLiteCoches(context, "DBAppCoches", null, 1);
+        if(SQH.comprobarBD(context)) {
+            createAndShowAlertDialog();
+        }
+
+    }
+    private void createAndShowAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Alerta");
+        builder.setMessage("No se han detectado datos en el registro" +
+                "\n ¿Desea cargar los datos por defecto?");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                SQLiteCoches.insertDatosBD(context);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(context,"Operacion Cancelada",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -188,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent facturas = new Intent(this,ListarFacturaActivity.class);
                 startActivity(facturas);
                 return true;
+            case R.id.Opcion4:
+                SQLiteCoches.onDelete(context);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -195,25 +238,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Factura crearFactura(){
-        String aux1 = holder.marca.getText().toString()+" "+holder.nombre.getText().toString();
-        String aux2 = holder.precio.getText().toString();
-        String aux3 = tiempo.getText().toString();
-        String aux4 = Integer.toString(extras);
-        String aux5 = Integer.toString(total);
+        String aux1 = holder.marca.getText().toString()+ " " + holder.nombre.getText().toString();
+        int aux2 = Integer.valueOf(holder.precio.getText().toString());
+        int aux3 = Integer.valueOf(tiempo.getText().toString());
+        int aux4 = extras;
+        int aux5 = total;
         int aux6 = idImagen;
         boolean aux7 = opcionSeguro;
 
         return new Factura(aux1,aux2,aux3,aux4,aux5,aux6,aux7);
     }
 
-    private Factura2 crearFactura2(){
+    /*private Factura2 crearFactura2(){
         String aux1 = holder.marca.getText().toString()+" "+holder.nombre.getText().toString();
         String aux2 = holder.precio.getText().toString();
         String aux3 = tiempo.getText().toString();
         String aux4 = Integer.toString(extras);
         String aux5 = Integer.toString(total);
         int aux6 = idImagen;
-        boolean aux7 = opcionSeguro;
+
 
         Factura2 factura2 = new Factura2();
 
@@ -226,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         return  factura2;
-    }
+    }*/
 
 
     private int operacion(){
@@ -263,7 +306,6 @@ public class MainActivity extends AppCompatActivity {
             if(columna==null) {
                 LayoutInflater inflater = getLayoutInflater();
                 columna = inflater.inflate(R.layout.spinner_coches,null);
-
                 holder=new ViewHolder();
 
                 holder.nombre = (TextView) columna.findViewById(R.id.textNombre);
@@ -279,8 +321,8 @@ public class MainActivity extends AppCompatActivity {
             holder.nombre.setText(listaCoches[position].getNombre());
             holder.marca.setText(listaCoches[position].getMarca());
             holder.precio.setText(String.valueOf(listaCoches[position].getPrecio()));
-            holder.imagen.setImageResource(listaCoches[position].getId());
-            idImagen = listaCoches[position].getId();
+            holder.imagen.setImageResource(listaCoches[position].getIdImagen());
+            idImagen = listaCoches[position].getIdImagen();
 
             return columna;
 

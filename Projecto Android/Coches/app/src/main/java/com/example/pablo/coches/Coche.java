@@ -6,13 +6,20 @@ package com.example.pablo.coches;
  */
 public class Coche {
     private String nombre, marca;
-    private int precio, id;
+    private int precio, id, idImagen;
 
-    public Coche(String nombre, String marca, int precio, int id) {
+    public Coche(String nombre, String marca, int precio, int idImagen) {
         this.nombre = nombre;
         this.marca = marca;
         this.precio = precio;
+        this.idImagen = idImagen;
+    }
+    public Coche(int id,String nombre, String marca, int precio, int idImagen) {
         this.id = id;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.precio = precio;
+        this.idImagen = idImagen;
     }
 
     public String getNombre() {
@@ -29,5 +36,9 @@ public class Coche {
 
     public int getId() {
         return id;
+    }
+
+    public int getIdImagen() {
+        return idImagen;
     }
 }

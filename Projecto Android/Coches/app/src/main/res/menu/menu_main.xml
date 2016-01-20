@@ -15,4 +15,8 @@
         android:title="Lista de Facturas"
         android:text="ListaFacturas">
     </item>
+    <item android:id="@+id/Opcion4"
+        android:title="Borrar"
+        android:text="Borrar">
+    </item>
 </menu>

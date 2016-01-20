@@ -1,9 +1,7 @@
 package com.example.pablo.coches;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +44,7 @@ public class FacturaActivity extends Activity {
         else
             seguro.setText("Sin Seguro");
         total.setText(factura.getTotal() + "€");
-        imagen.setImageResource(factura.getId());
+        imagen.setImageResource(factura.getImagenId());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +52,7 @@ public class FacturaActivity extends Activity {
                 if (flag)
                     Toast.makeText(context,"Ya se ha guardado esta factura",Toast.LENGTH_SHORT).show();
                 else {
-                    SQLiteHelper.guardarFactura(context, factura);
+                    SQLiteFacturas.guardarFactura(context, factura);
                     Toast.makeText(context, "Factura Guardada", Toast.LENGTH_SHORT).show();
                     flag=true;
                 }

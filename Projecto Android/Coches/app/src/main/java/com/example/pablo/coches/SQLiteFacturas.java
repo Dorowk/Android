@@ -10,13 +10,13 @@ import android.widget.Toast;
 /**
  * Created by mati on 11/01/16.
  */
-public class SQLiteHelper extends SQLiteOpenHelper {
+public class SQLiteFacturas extends SQLiteOpenHelper {
     String cadSQL = "CREATE TABLE Pedidos " +
             "(ID INTEGER PRIMARY KEY, Nombre TEXT, Tiempo INTEGER," +
             " Extras INTEGER, Total INTEGER, Imagen INTEGER," +
             "Seguro INTERGER )";
 
-    public SQLiteHelper(Context contexto, String nombre, SQLiteDatabase.CursorFactory almacen, int version){
+    public SQLiteFacturas(Context contexto, String nombre, SQLiteDatabase.CursorFactory almacen, int version){
         super(contexto, nombre, almacen, version);
     }
 
@@ -31,16 +31,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase bd, int versionAnterior, int versionNueva) {
 
-        //Eliminamos la version anterior de la tabla
-        bd.execSQL("DROP TABLE IF EXISTS Clientes");
+        bd.execSQL("DROP TABLE IF EXISTS Pedidos");
 
-        //Creamos la nueva versi�n de la tabla
         bd.execSQL(cadSQL);
     }
 
 
     static void guardarFactura(Context context,Factura factura){
-        final SQLiteHelper SQH = new SQLiteHelper(context, "DBPedidos", null, 1);
+        final SQLiteFacturas SQH = new SQLiteFacturas(context, "DBAppCoches", null, 1);
         SQLiteDatabase bd = SQH.getWritableDatabase();
         int seguro;
         if (factura.getSeguro())
@@ -51,14 +49,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         if (bd!=null) {
             ContentValues nuevoRegistro = new ContentValues();
             nuevoRegistro.put("Nombre",factura.getNombre());
-            nuevoRegistro.put("Tiempo", Integer.parseInt(factura.getTiempo()));
-            nuevoRegistro.put("Extras", Integer.parseInt(factura.getExtras()));
-            nuevoRegistro.put("Total", Integer.parseInt(factura.getTotal()));
-            nuevoRegistro.put("Imagen", factura.getId());
+            nuevoRegistro.put("Tiempo", factura.getTiempo());
+            nuevoRegistro.put("Extras", factura.getExtras());
+            nuevoRegistro.put("Total", factura.getTotal());
+            nuevoRegistro.put("Imagen", factura.getImagenId());
             nuevoRegistro.put("Seguro",seguro);
 
             bd.insert("Pedidos", null, nuevoRegistro);
-            Toast.makeText(context, "Registro guardado correctamente", Toast.LENGTH_SHORT).show();
 
         }else{
             Toast.makeText(context, "Error al conectar con la base de datos", Toast.LENGTH_SHORT).show();
@@ -67,32 +64,44 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         SQH.close();
     }
 
-    public static Factura[] CargarArray(Context contexts){
-        SQLiteHelper cliBDh = new SQLiteHelper(contexts, "DBPedidos", null, 1);
-        SQLiteDatabase bd = cliBDh.getWritableDatabase();
+    public static Factura[] CargarArray(Context context){
+        SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQLiteDatabase bd = cliBDh.getReadableDatabase();
         Cursor cursor =bd.rawQuery("SELECT * FROM Pedidos", null);
         cursor.moveToFirst();
         Factura[] listaFacturas = new Factura[cursor.getCount()];
-        String nombre,tiempo,extras,total;
-        int imagen;
+        String nombre;
+        int id,imagen ,tiempo,extras,total;
         boolean seguro;
 
         for(int i =0; i<listaFacturas.length;i++){
+            id=cursor.getInt(0);
             nombre=cursor.getString(1);
-            tiempo=Integer.toString(cursor.getInt(2));
-            extras=Integer.toString(cursor.getInt(3));
-            total=Integer.toString(cursor.getInt(4));
+            tiempo=cursor.getInt(2);
+            extras=cursor.getInt(3);
+            total=cursor.getInt(4);
             imagen=cursor.getInt(5);
             if(cursor.getInt(6)==1)
                 seguro = true;
             else
                 seguro = false;
 
-            listaFacturas[i]=new Factura(nombre,"",tiempo,extras,total,imagen,seguro);
+            listaFacturas[i]=new Factura(id,nombre,0,tiempo,extras,total,imagen,seguro);
+
             cursor.moveToNext();
         }
         cursor.close();
         bd.close();
         return listaFacturas;
+    }
+    public static void borrarRegistro(Context context, int Id){
+        SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQLiteDatabase bd = cliBDh.getWritableDatabase();
+        String[] arg = new String[]{String.valueOf(Id)};
+        bd.delete("Pedidos","ID =?",arg);
+        bd.close();
+        cliBDh.close();
+        Toast.makeText(context,"Registro borrado",Toast.LENGTH_SHORT).show();
+
     }
 }
