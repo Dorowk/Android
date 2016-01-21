@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     ViewHolder holder;
 
     boolean opcionSeguro;
-    int extras, total, idImagen, position;
+    int extras, total, idImagen;
 
     Context context;
 
@@ -220,15 +220,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Factura crearFactura(){
-        String aux1 = holder.marca.getText().toString()+" "+holder.nombre.getText().toString();
-        int aux2 = Integer.valueOf(holder.precio.getText().toString());
-        int aux3 = Integer.valueOf(tiempo.getText().toString());
-        int aux4 = extras;
-        int aux5 = total;
-        int aux6 = idImagen;
-        boolean aux7 = opcionSeguro;
+        int aux1 = Integer.valueOf(holder.id.getText().toString());
+        int aux2 = Integer.valueOf(tiempo.getText().toString());
+        int aux3 = extras;
+        int aux4 = total;
+        boolean aux5 = opcionSeguro;
 
-        return new Factura(aux1,aux2,aux3,aux4,aux5,aux6,aux7);
+        return new Factura(aux1,aux2,aux3,aux4,aux5);
     }
 
     /*private Factura2 crearFactura2(){
@@ -289,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 columna = inflater.inflate(R.layout.spinner_coches,null);
                 holder=new ViewHolder();
-
+                holder.id = (TextView) columna.findViewById(R.id.textID);
                 holder.nombre = (TextView) columna.findViewById(R.id.textNombre);
                 holder.marca = (TextView) columna.findViewById(R.id.textMarca);
                 holder.precio = (TextView) columna.findViewById(R.id.textPrecio);
@@ -299,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 holder=(ViewHolder)columna.getTag();
             }
-
+            holder.id.setText(String.valueOf(listaCoches[position].getId()));
             holder.nombre.setText(listaCoches[position].getNombre());
             holder.marca.setText(listaCoches[position].getMarca());
             holder.precio.setText(String.valueOf(listaCoches[position].getPrecio()));

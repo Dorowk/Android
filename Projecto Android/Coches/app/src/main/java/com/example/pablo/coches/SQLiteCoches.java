@@ -3,7 +3,6 @@ package com.example.pablo.coches;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -132,5 +131,21 @@ public class SQLiteCoches extends SQLiteOpenHelper {
 
         bd.close();
         return listaCoche;
+    }
+
+    public static Coche cargarCoche(Context context,int idCoche){
+        Coche coche;
+        String nombre, marca;
+        int id,idimagen,precio;
+        SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQLiteDatabase bd = cliBDh.getWritableDatabase();
+        Cursor cursor =bd.rawQuery("SELECT * FROM Coches WHERE ID = "+idCoche, null);
+        cursor.moveToFirst();
+        id = cursor.getInt(0);
+        nombre=cursor.getString(1);
+        marca=cursor.getString(2);
+        precio=cursor.getInt(3);
+        idimagen=cursor.getInt(4);
+        return coche=new Coche(id,nombre,marca,precio,idimagen);
     }
 }

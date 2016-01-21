@@ -36,6 +36,7 @@ public class ListarFacturaActivity extends Activity{
         setContentView(R.layout.listarfactura_layout);
         listView = (ListView) findViewById(R.id.listaFactura);
         context = this;
+
         Comprobar();
 
 
@@ -138,13 +139,13 @@ public class ListarFacturaActivity extends Activity{
                 seguroText = "Con Seguro";
             else
                 seguroText= "Sin seguro";
-
-            holder.nombre.setText(listaFacturas[position].getNombre());
+            Coche coche=SQLiteCoches.cargarCoche(context,listaFacturas[position].getIdCoche());
+            holder.nombre.setText(coche.getNombre()+" "+coche.getMarca());
             holder.horas.setText(String.valueOf(listaFacturas[position].getTiempo()));
             holder.extra.setText(String.valueOf(listaFacturas[position].getExtras()));
             holder.total.setText(String.valueOf(listaFacturas[position].getTotal()));
             holder.seguro.setText(seguroText);
-            holder.imagen.setImageResource(listaFacturas[position].getImagenId());
+            holder.imagen.setImageResource(coche.getIdImagen());
 
 
             return columna;

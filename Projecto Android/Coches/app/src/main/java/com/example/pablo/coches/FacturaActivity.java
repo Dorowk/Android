@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class FacturaActivity extends Activity {
     final Context context = this;
     Boolean flag=false;
+    Factura factura;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,10 +34,11 @@ public class FacturaActivity extends Activity {
         Bundle bundle = getIntent().getExtras();
 
 
-        final Factura factura = (Factura) bundle.getSerializable("Factura");
+        factura = (Factura) bundle.getSerializable("Factura");
+        Coche coche=SQLiteCoches.cargarCoche(context, factura.getIdCoche());
 
-        modelo.setText(factura.getNombre());
-        precioHora.setText(factura.getPrecioHoras() + "€");
+        modelo.setText(coche.getNombre()+coche.getMarca());
+        precioHora.setText(coche.getPrecio() + "€");
         extras.setText(factura.getExtras() + "€");
         tiempo.setText(String.valueOf(factura.getTiempo()));
         if (factura.getSeguro())
@@ -44,7 +46,7 @@ public class FacturaActivity extends Activity {
         else
             seguro.setText("Sin Seguro");
         total.setText(factura.getTotal() + "€");
-        imagen.setImageResource(factura.getImagenId());
+        imagen.setImageResource(coche.getIdImagen());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
