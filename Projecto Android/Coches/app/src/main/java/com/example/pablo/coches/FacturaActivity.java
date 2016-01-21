@@ -38,7 +38,7 @@ public class FacturaActivity extends Activity {
         modelo.setText(factura.getNombre());
         precioHora.setText(factura.getPrecioHoras() + "€");
         extras.setText(factura.getExtras() + "€");
-        tiempo.setText(factura.getTiempo());
+        tiempo.setText(String.valueOf(factura.getTiempo()));
         if (factura.getSeguro())
             seguro.setText("Con Seguro");
         else
@@ -52,7 +52,9 @@ public class FacturaActivity extends Activity {
                 if (flag)
                     Toast.makeText(context,"Ya se ha guardado esta factura",Toast.LENGTH_SHORT).show();
                 else {
-                    SQLiteFacturas.guardarFactura(context, factura);
+                    SQLiteFacturas SQL = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+                    SQL.comprobarBD(SQL);
+                    SQL.guardarFactura(SQL, context, factura);
                     Toast.makeText(context, "Factura Guardada", Toast.LENGTH_SHORT).show();
                     flag=true;
                 }

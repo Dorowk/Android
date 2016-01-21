@@ -1,7 +1,9 @@
 package com.example.pablo.coches;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -39,14 +41,38 @@ public class SQLiteCoches extends SQLiteOpenHelper {
     public boolean comprobarBD(Context context){
         SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
         SQLiteDatabase bd = cliBDh.getWritableDatabase();
-        Cursor cursor =bd.rawQuery("SELECT * FROM Coches", null);
-        cursor.moveToFirst();
-        int aux = cursor.getInt(0);
-        Toast.makeText(context,aux,Toast.LENGTH_SHORT).show();
-        cursor.close();
-        return aux>0;
-    }
+        Boolean estado = false;
 
+        if(comprobarTabla(bd)) {
+            onCreate(bd);
+            SQLiteCoches.insertDatosBD(context);
+            estado = true;
+        }else if (comprobarDatos(bd)){
+            SQLiteCoches.insertDatosBD(context);
+            estado = true;
+        }
+        bd.close();
+        cliBDh.close();
+        return estado;
+
+    }
+    private boolean comprobarTabla(SQLiteDatabase bd){
+        Cursor cursor = bd.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'Coches' ",null);
+        if (!cursor.moveToFirst())
+        {
+            return true;
+        }
+        int count = cursor.getInt(0);
+        cursor.close();
+        return count != 1;
+    }
+    private boolean comprobarDatos(SQLiteDatabase bd){
+        Cursor cursor = bd.rawQuery("SELECT COUNT(*) FROM Coches",null);
+        cursor.moveToFirst();
+        boolean aux = cursor.getInt(0)==0;
+        cursor.close();
+        return aux;
+    }
 
     public static void insertDatosBD(Context context){
         Coche[] listaCoches = new Coche[]{

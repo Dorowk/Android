@@ -11,9 +11,9 @@ import android.widget.Toast;
  * Created by mati on 11/01/16.
  */
 public class SQLiteFacturas extends SQLiteOpenHelper {
-    String cadSQL = "CREATE TABLE Pedidos " +
-            "(ID INTEGER PRIMARY KEY, Nombre TEXT, Tiempo INTEGER," +
-            " Extras INTEGER, Total INTEGER, Imagen INTEGER," +
+    final String cadSQL = "CREATE TABLE Pedidos " +
+            "(ID INTEGER PRIMARY KEY,IDCoche INTEGER, Tiempo INTEGER," +
+            " Extras INTEGER, Total INTEGER," +
             "Seguro INTERGER )";
 
     public SQLiteFacturas(Context contexto, String nombre, SQLiteDatabase.CursorFactory almacen, int version){
@@ -36,9 +36,27 @@ public class SQLiteFacturas extends SQLiteOpenHelper {
         bd.execSQL(cadSQL);
     }
 
+    public  void comprobarBD(SQLiteFacturas cliBDh){
+        SQLiteDatabase bd = cliBDh.getWritableDatabase();
 
-    static void guardarFactura(Context context,Factura factura){
-        final SQLiteFacturas SQH = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        if(comprobarTabla(bd)) {
+           onCreate(bd);
+        }
+
+
+    }
+    private static boolean comprobarTabla(SQLiteDatabase bd){
+        Cursor cursor = bd.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'Pedidos' ",null);
+        if (!cursor.moveToFirst())
+        {
+            return true;
+        }
+        int count = cursor.getInt(0);
+        cursor.close();
+        return count != 1;
+    }
+
+    public void guardarFactura(SQLiteFacturas SQH, Context context,Factura factura){
         SQLiteDatabase bd = SQH.getWritableDatabase();
         int seguro;
         if (factura.getSeguro())
@@ -48,11 +66,10 @@ public class SQLiteFacturas extends SQLiteOpenHelper {
 
         if (bd!=null) {
             ContentValues nuevoRegistro = new ContentValues();
-            nuevoRegistro.put("Nombre",factura.getNombre());
+            nuevoRegistro.put("IDCoche",factura.getIdCoche());
             nuevoRegistro.put("Tiempo", factura.getTiempo());
             nuevoRegistro.put("Extras", factura.getExtras());
             nuevoRegistro.put("Total", factura.getTotal());
-            nuevoRegistro.put("Imagen", factura.getImagenId());
             nuevoRegistro.put("Seguro",seguro);
 
             bd.insert("Pedidos", null, nuevoRegistro);
@@ -70,23 +87,22 @@ public class SQLiteFacturas extends SQLiteOpenHelper {
         Cursor cursor =bd.rawQuery("SELECT * FROM Pedidos", null);
         cursor.moveToFirst();
         Factura[] listaFacturas = new Factura[cursor.getCount()];
-        String nombre;
-        int id,imagen ,tiempo,extras,total;
+
+        int id,idCoche,tiempo,extras,total;
         boolean seguro;
 
         for(int i =0; i<listaFacturas.length;i++){
             id=cursor.getInt(0);
-            nombre=cursor.getString(1);
+            idCoche=cursor.getInt(1);
             tiempo=cursor.getInt(2);
             extras=cursor.getInt(3);
             total=cursor.getInt(4);
-            imagen=cursor.getInt(5);
-            if(cursor.getInt(6)==1)
+            if(cursor.getInt(5)==1)
                 seguro = true;
             else
                 seguro = false;
 
-            listaFacturas[i]=new Factura(id,nombre,0,tiempo,extras,total,imagen,seguro);
+            listaFacturas[i]=new Factura(id,idCoche,tiempo,extras,total,seguro);
 
             cursor.moveToNext();
         }

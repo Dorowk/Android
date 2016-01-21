@@ -36,6 +36,8 @@ public class ListarFacturaActivity extends Activity{
         setContentView(R.layout.listarfactura_layout);
         listView = (ListView) findViewById(R.id.listaFactura);
         context = this;
+        Comprobar();
+
 
         listaFacturas = SQLiteFacturas.CargarArray(context);
 
@@ -43,6 +45,10 @@ public class ListarFacturaActivity extends Activity{
         listView.setAdapter(adaptadorFacturas);
         registerForContextMenu(listView);
 
+    }
+    private void Comprobar(){
+        SQLiteFacturas SQL = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQL.comprobarBD(SQL);
     }
 
     @Override
@@ -134,9 +140,9 @@ public class ListarFacturaActivity extends Activity{
                 seguroText= "Sin seguro";
 
             holder.nombre.setText(listaFacturas[position].getNombre());
-            holder.horas.setText(listaFacturas[position].getTiempo());
-            holder.extra.setText(listaFacturas[position].getExtras());
-            holder.total.setText(listaFacturas[position].getTotal());
+            holder.horas.setText(String.valueOf(listaFacturas[position].getTiempo()));
+            holder.extra.setText(String.valueOf(listaFacturas[position].getExtras()));
+            holder.total.setText(String.valueOf(listaFacturas[position].getTotal()));
             holder.seguro.setText(seguroText);
             holder.imagen.setImageResource(listaFacturas[position].getImagenId());
 
