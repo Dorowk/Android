@@ -12,8 +12,8 @@ import android.widget.Toast;
  */
 public class SQLiteFacturas extends SQLiteOpenHelper {
     final String cadSQL = "CREATE TABLE Pedidos " +
-            "(ID INTEGER PRIMARY KEY,IDCoche INTEGER, Tiempo INTEGER," +
-            " Extras INTEGER, Total INTEGER," +
+            "(ID INTEGER PRIMARY KEY, Nombre TEXT, Tiempo INTEGER," +
+            " Extras INTEGER, Total INTEGER, Imagen INTEGER," +
             "Seguro INTERGER )";
 
     public SQLiteFacturas(Context contexto, String nombre, SQLiteDatabase.CursorFactory almacen, int version){
@@ -66,10 +66,11 @@ public class SQLiteFacturas extends SQLiteOpenHelper {
 
         if (bd!=null) {
             ContentValues nuevoRegistro = new ContentValues();
-            nuevoRegistro.put("IDCoche",factura.getIdCoche());
+            nuevoRegistro.put("Nombre",factura.getNombre());
             nuevoRegistro.put("Tiempo", factura.getTiempo());
             nuevoRegistro.put("Extras", factura.getExtras());
             nuevoRegistro.put("Total", factura.getTotal());
+            nuevoRegistro.put("Imagen", factura.getImagenId());
             nuevoRegistro.put("Seguro",seguro);
 
             bd.insert("Pedidos", null, nuevoRegistro);
@@ -87,22 +88,23 @@ public class SQLiteFacturas extends SQLiteOpenHelper {
         Cursor cursor =bd.rawQuery("SELECT * FROM Pedidos", null);
         cursor.moveToFirst();
         Factura[] listaFacturas = new Factura[cursor.getCount()];
-
-        int id,idCoche,tiempo,extras,total;
+        String nombre;
+        int id,imagen ,tiempo,extras,total;
         boolean seguro;
 
         for(int i =0; i<listaFacturas.length;i++){
             id=cursor.getInt(0);
-            idCoche=cursor.getInt(1);
+            nombre=cursor.getString(1);
             tiempo=cursor.getInt(2);
             extras=cursor.getInt(3);
             total=cursor.getInt(4);
-            if(cursor.getInt(5)==1)
+            imagen=cursor.getInt(5);
+            if(cursor.getInt(6)==1)
                 seguro = true;
             else
                 seguro = false;
 
-            listaFacturas[i]=new Factura(id,idCoche,tiempo,extras,total,seguro);
+            listaFacturas[i]=new Factura(id,nombre,0,tiempo,extras,total,imagen,seguro);
 
             cursor.moveToNext();
         }

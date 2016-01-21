@@ -6,33 +6,44 @@ import java.io.Serializable;
  * Created by Pablo on 28/12/2015.
  */
 public class Factura implements Serializable {
-
-    private int id,idCoche, tiempo, total, extras;
+    private String nombre;
+    private int imagenId, id, precioHoras, tiempo, total, extras;
     private boolean seguro;
 
-    Factura(int idCoche,int tiempo, int extras,  int total, boolean seguro) {
-        this.idCoche = idCoche;
+    Factura(String nombre, int precioHoras,int tiempo, int extras,  int total, int idImagen, boolean seguro) {
+        this.nombre = nombre;
+        this.precioHoras = precioHoras;
         this.tiempo = tiempo;
         this.extras = extras;
         this.total = total;
+        this.imagenId = idImagen;
         this.seguro = seguro;
     }
-    Factura(int id,int idCoche,int tiempo, int extras,  int total, boolean seguro) {
+    Factura(int id,String nombre, int precioHoras,int tiempo, int extras,  int total, int idImagen, boolean seguro) {
         this.id = id;
-        this.idCoche=idCoche;
+        this.nombre = nombre;
+        this.precioHoras = precioHoras;
         this.tiempo = tiempo;
         this.extras = extras;
         this.total = total;
+        this.imagenId = idImagen;
         this.seguro = seguro;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getImagenId() {
+        return imagenId;
+    }
+
+    public int getPrecioHoras() {
+        return precioHoras;
+    }
 
     public int getId() {
         return id;
-    }
-
-    public int getIdCoche() {
-        return idCoche;
     }
 
     public int getTiempo() {
