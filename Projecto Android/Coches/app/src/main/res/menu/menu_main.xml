@@ -19,4 +19,8 @@
         android:title="Borrar"
         android:text="Borrar">
     </item>
+    <item android:id="@+id/Opcion5"
+        android:title="Acceso Usuarios"
+        android:text="Acceso">
+    </item>
 </menu>

@@ -1,4 +1,4 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Objetos;
 
 import java.io.Serializable;
 
@@ -10,14 +10,14 @@ public class Factura implements Serializable {
     private int id,idCoche, tiempo, total, extras;
     private boolean seguro;
 
-    Factura(int idCoche, int tiempo, int extras,  int total, boolean seguro) {
+    public Factura(int idCoche, int tiempo, int extras, int total, boolean seguro) {
         this.idCoche=idCoche;
         this.tiempo = tiempo;
         this.extras = extras;
         this.total = total;
         this.seguro = seguro;
     }
-    Factura(int id,int idCoche, int tiempo, int extras,  int total, boolean seguro) {
+    public Factura(int id, int idCoche, int tiempo, int extras, int total, boolean seguro) {
         this.id=id;
         this.idCoche=idCoche;
         this.tiempo = tiempo;

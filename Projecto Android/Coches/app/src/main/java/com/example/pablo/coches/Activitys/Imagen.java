@@ -1,13 +1,15 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.pablo.coches.Objetos.Dibujo;
+import com.example.pablo.coches.R;
 
 
 /**

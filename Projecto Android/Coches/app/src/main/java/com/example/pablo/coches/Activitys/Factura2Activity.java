@@ -1,9 +1,12 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.pablo.coches.Objetos.Factura2;
+import com.example.pablo.coches.R;
 
 /**
  * Created by Pablo on 28/12/2015.

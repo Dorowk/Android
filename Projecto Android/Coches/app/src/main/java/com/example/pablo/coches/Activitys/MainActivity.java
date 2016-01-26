@@ -1,4 +1,4 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,6 +25,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pablo.coches.Objetos.Coche;
+import com.example.pablo.coches.Objetos.Factura;
+import com.example.pablo.coches.R;
+import com.example.pablo.coches.SQLiteClass.SQLiteCoches;
+import com.example.pablo.coches.SQLiteClass.SQLiteFacturas;
+
 
 public class MainActivity extends AppCompatActivity {
     Coche[] listaCoches;
@@ -44,10 +50,9 @@ public class MainActivity extends AppCompatActivity {
     ViewHolder holder;
 
     boolean opcionSeguro;
-    int extras, total, idImagen;
+    int extras, total, idImagen, idUsuario=0;
 
     Context context;
-
 
 
     @Override
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setTitle("Alquiler de Coches");
         context = this;
-
+        alertUsarios();
         CargarDatos();
         listaCoches = SQLiteCoches.CargarArray(context);
 
@@ -170,11 +175,45 @@ public class MainActivity extends AppCompatActivity {
                 }else
                     Toast.makeText(getApplicationContext(), "Inserta las horas", Toast.LENGTH_SHORT).show();
             */
-                Toast.makeText(context,"Parcelable-Sin Uso-Comentado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Parcelable - Sin Uso - Mirar Codigo",Toast.LENGTH_SHORT).show();
             }
         });
 
 
+    }
+
+    private int operacion(){
+        int precioHoras,horas,total;
+        precioHoras = Integer.parseInt(holder.precio.getText().toString());
+        horas = Integer.parseInt(tiempo.getText().toString());
+        total = precioHoras*horas+extras;
+
+        if(opcionSeguro)
+            total *= 1.20;
+
+        return total;
+    }
+
+    private void alertUsarios() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Conectarse");
+        builder.setMessage("Para continuar debe indentificarse.");
+        builder.setPositiveButton("Identificarse", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent Cliente = new Intent(context, ClienteActivity.class);
+                startActivity(Cliente);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Anonimo", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(context,"Has accedido como anonimo",Toast.LENGTH_SHORT).show();
+                idUsuario = 0;
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     private void CargarDatos(){
         SQLiteCoches SQH = new SQLiteCoches(context, "DBAppCoches", null, 1);
@@ -211,7 +250,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.Opcion4:
                 SQLiteCoches.onDelete(context);
+                SQLiteFacturas.recargarBD(context);
                 refresh();
+                return true;
+            case R.id.Opcion5:
+                Intent Cliente = new Intent(context, ClienteActivity.class);
+                startActivity(Cliente);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -252,17 +296,8 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 
-    private int operacion(){
-        int precioHoras,horas,total;
-        precioHoras = Integer.parseInt(holder.precio.getText().toString());
-        horas = Integer.parseInt(tiempo.getText().toString());
-        total = precioHoras*horas+extras;
 
-        if(opcionSeguro)
-            total *= 1.20;
 
-        return total;
-    }
     class AdaptadorCoches extends ArrayAdapter<Coche>{
         public Activity main;
 

@@ -1,4 +1,4 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.pablo.coches.Objetos.Coche;
+import com.example.pablo.coches.Objetos.Factura;
+import com.example.pablo.coches.R;
+import com.example.pablo.coches.SQLiteClass.SQLiteCoches;
+import com.example.pablo.coches.SQLiteClass.SQLiteFacturas;
 
 /**
  * Created by Pablo on 28/12/2015.
@@ -35,7 +41,7 @@ public class FacturaActivity extends Activity {
 
 
         factura = (Factura) bundle.getSerializable("Factura");
-        Coche coche=SQLiteCoches.cargarCoche(context, factura.getIdCoche());
+        Coche coche= SQLiteCoches.cargarCoche(context, factura.getIdCoche());
 
         modelo.setText(coche.getNombre()+coche.getMarca());
         precioHora.setText(coche.getPrecio() + "€");

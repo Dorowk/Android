@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Creacion de Usuarios"
+        android:textAlignment="center"
+        android:id="@+id/textView14"
+        android:layout_marginTop="36dp"
+        android:textSize="35dp"
+        android:textColor="#89b9ef"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Usuario"
+        android:ems="10"
+        android:id="@+id/editUsu2"
+        android:layout_below="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPass2"
+        android:hint="Password"
+        android:ems="10"
+        android:layout_below="@+id/editUsu2"
+        android:layout_alignStart="@+id/editUsu2"
+        android:layout_marginTop="30dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:ems="6"
+        android:id="@+id/editNombre2"
+        android:layout_below="@+id/editPass2"
+        android:layout_alignStart="@+id/editPass2"
+        android:layout_marginTop="40dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="Telefono"
+        android:ems="6"
+        android:id="@+id/editTelefono2"
+        android:layout_alignTop="@+id/editNombre2"
+        android:layout_toEndOf="@+id/editNombre2"
+        android:layout_marginStart="35dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:hint="Correo"
+        android:id="@+id/editCorreo2"
+        android:layout_below="@+id/editNombre2"
+        android:layout_alignStart="@+id/editNombre2"
+        android:layout_marginTop="43dp"
+        android:layout_alignEnd="@+id/editTelefono2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        android:id="@+id/buttonGuardar2"
+        android:layout_below="@+id/editCorreo2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/textEstado2"
+        android:layout_below="@+id/editUsu2"
+        android:layout_toStartOf="@+id/buttonGuardar2"
+        android:layout_alignEnd="@+id/editTelefono2" />
+
+
+</RelativeLayout>

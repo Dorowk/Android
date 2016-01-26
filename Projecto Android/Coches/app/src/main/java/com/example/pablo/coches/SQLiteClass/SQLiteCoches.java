@@ -1,12 +1,14 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.SQLiteClass;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
+
+import com.example.pablo.coches.Objetos.Coche;
+import com.example.pablo.coches.R;
 
 /**
  * Created by mati on 20/01/16.
@@ -75,7 +77,7 @@ public class SQLiteCoches extends SQLiteOpenHelper {
 
     public static void insertDatosBD(Context context){
         Coche[] listaCoches = new Coche[]{
-                new Coche("Megane","Seat",20,R.drawable.coche1),
+                new Coche("Megane","Seat",20, R.drawable.coche1),
                 new Coche("X-11","Ferrari",100,R.drawable.coche2),
                 new Coche("Leon","Seat",30,R.drawable.coche3),
                 new Coche("Fiesta","Ford",40,R.drawable.coche4),
@@ -134,7 +136,7 @@ public class SQLiteCoches extends SQLiteOpenHelper {
     }
 
     public static Coche cargarCoche(Context context,int idCoche){
-        Coche coche;
+
         String nombre, marca;
         int id,idimagen,precio;
         SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
@@ -146,6 +148,6 @@ public class SQLiteCoches extends SQLiteOpenHelper {
         marca=cursor.getString(2);
         precio=cursor.getInt(3);
         idimagen=cursor.getInt(4);
-        return coche=new Coche(id,nombre,marca,precio,idimagen);
+        return new Coche(id,nombre,marca,precio,idimagen);
     }
 }

@@ -1,9 +1,7 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Objetos;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 /**
  * Created by Pablo on 28/12/2015.

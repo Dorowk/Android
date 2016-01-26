@@ -1,4 +1,4 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.SQLiteClass;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,13 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import com.example.pablo.coches.Objetos.Factura;
+
 /**
  * Created by mati on 11/01/16.
  */
 public class SQLiteFacturas extends SQLiteOpenHelper {
     final String cadSQL = "CREATE TABLE Pedidos " +
-            "(ID INTEGER PRIMARY KEY, IDCoche INTEGER, Nombre TEXT, Tiempo INTEGER," +
-            " Extras INTEGER, Total INTEGER, Imagen INTEGER,Seguro INTERGER," +
+            "(ID INTEGER PRIMARY KEY, IDCoche INTEGER, Tiempo INTEGER," +
+            " Extras INTEGER, Total INTEGER,Seguro INTERGER," +
             " FOREIGN KEY(IDCoche) REFERENCES Coches(ID)" +
             ")";
 
@@ -37,14 +39,17 @@ public class SQLiteFacturas extends SQLiteOpenHelper {
         bd.execSQL(cadSQL);
     }
 
+    public static void recargarBD(Context context){
+        SQLiteFacturas SQL = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQLiteDatabase bd = SQL.getWritableDatabase();
+        SQL.onUpgrade(bd,0,1);
+    }
     public  void comprobarBD(SQLiteFacturas cliBDh){
         SQLiteDatabase bd = cliBDh.getWritableDatabase();
 
         if(comprobarTabla(bd)) {
            onCreate(bd);
         }
-
-
     }
     private static boolean comprobarTabla(SQLiteDatabase bd){
         Cursor cursor = bd.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'Pedidos' ",null);
@@ -79,7 +84,6 @@ public class SQLiteFacturas extends SQLiteOpenHelper {
             Toast.makeText(context, "Error al conectar con la base de datos", Toast.LENGTH_SHORT).show();
         }
         bd.close();
-        SQH.close();
     }
 
     public static Factura[] CargarArray(Context context){

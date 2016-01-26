@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activitys.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,22 +19,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FacturaActivity"
+            android:name=".Activitys.FacturaActivity"
             android:label="Factura">
         </activity>
         <activity
-            android:name=".Factura2Activity"
+            android:name=".Activitys.Factura2Activity"
             android:label="Factura">
         </activity>
         <activity
-            android:name=".AcercaDe"
+            android:name=".Activitys.AcercaDe"
             android:label="AcercaDe">
         </activity>
-        <activity android:name=".Imagen"
+        <activity android:name=".Activitys.Imagen"
             android:label="Dibujo">
         </activity>
-        <activity android:name=".ListarFacturaActivity"
+        <activity android:name=".Activitys.ListarFacturaActivity"
             android:label="Lista de facturas">
+        </activity>
+        <activity android:name=".Activitys.ClienteActivity"
+            android:label="Iniciar Sesion">
+        </activity>
+        <activity android:name=".Activitys.NewClientActivity"
+            android:label="Crear Cliente">
         </activity>
     </application>
 

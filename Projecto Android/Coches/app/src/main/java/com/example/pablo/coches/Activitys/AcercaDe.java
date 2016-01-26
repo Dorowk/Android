@@ -1,8 +1,10 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Activitys;
 
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.pablo.coches.R;
 
 /**
  * Created by Pablo on 30/12/2015.

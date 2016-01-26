@@ -1,4 +1,4 @@
-package com.example.pablo.coches;
+package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +18,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.pablo.coches.Objetos.Coche;
+import com.example.pablo.coches.Objetos.Factura;
+import com.example.pablo.coches.R;
+import com.example.pablo.coches.SQLiteClass.SQLiteCoches;
+import com.example.pablo.coches.SQLiteClass.SQLiteFacturas;
 
 
 /**
@@ -139,7 +145,7 @@ public class ListarFacturaActivity extends Activity{
                 seguroText = "Con Seguro";
             else
                 seguroText= "Sin seguro";
-            Coche coche=SQLiteCoches.cargarCoche(context,listaFacturas[position].getIdCoche());
+            Coche coche= SQLiteCoches.cargarCoche(context, listaFacturas[position].getIdCoche());
             holder.nombre.setText(coche.getNombre()+" "+coche.getMarca());
             holder.horas.setText(String.valueOf(listaFacturas[position].getTiempo()));
             holder.extra.setText(String.valueOf(listaFacturas[position].getExtras()));
