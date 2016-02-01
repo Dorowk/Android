@@ -7,19 +7,21 @@ import java.io.Serializable;
  */
 public class Factura implements Serializable {
 
-    private int id,idCoche, tiempo, total, extras;
+    private int id,idCoche, idCliente, tiempo, total, extras;
     private boolean seguro;
 
-    public Factura(int idCoche, int tiempo, int extras, int total, boolean seguro) {
+    public Factura(int idCoche,int idCliente, int tiempo, int extras, int total, boolean seguro) {
         this.idCoche=idCoche;
+        this.idCliente=idCliente;
         this.tiempo = tiempo;
         this.extras = extras;
         this.total = total;
         this.seguro = seguro;
     }
-    public Factura(int id, int idCoche, int tiempo, int extras, int total, boolean seguro) {
+    public Factura(int id, int idCoche,int idCliente, int tiempo, int extras, int total, boolean seguro) {
         this.id=id;
         this.idCoche=idCoche;
+        this.idCliente=idCliente;
         this.tiempo = tiempo;
         this.extras = extras;
         this.total = total;
@@ -29,6 +31,7 @@ public class Factura implements Serializable {
     public int getIdCoche() {
         return idCoche;
     }
+
     public int getId() {
         return id;
     }
@@ -47,5 +50,9 @@ public class Factura implements Serializable {
 
     public boolean getSeguro() {
         return seguro;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
     }
 }

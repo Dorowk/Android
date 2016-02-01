@@ -24,13 +24,13 @@ public class SQLiteClientes extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL(cadSQL);
         ContentValues nuevoRegistro = new ContentValues();
-        nuevoRegistro.put("Usuario", "Anonimo");
-        nuevoRegistro.put("Nombre","Anonimo");
+        nuevoRegistro.put("Usuario", "Admin");
+        nuevoRegistro.put("Password", "admin");
         bd.insert("Clientes", null, nuevoRegistro);
 
         nuevoRegistro.clear();
-        nuevoRegistro.put("Usuario", "Admin");
-        nuevoRegistro.put("Password", "admin");
+        nuevoRegistro.put("Usuario", "Anonimo");
+        nuevoRegistro.put("Nombre","Anonimo");
         bd.insert("Clientes", null, nuevoRegistro);
     }
 
@@ -40,13 +40,19 @@ public class SQLiteClientes extends SQLiteOpenHelper {
         onCreate(bd);
     }
     public static void onDelete(Context context){
-        SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQLiteClientes cliBDh = new SQLiteClientes(context, "DBAppCoches", null, 1);
         SQLiteDatabase bd = cliBDh.getWritableDatabase();
         bd.execSQL("DROP TABLE IF EXISTS Clientes");
     }
 
+    public static void recargarBD(Context context){
+        SQLiteClientes SQL = new SQLiteClientes(context, "DBAppCoches", null, 1);
+        SQLiteDatabase bd = SQL.getWritableDatabase();
+        SQL.onUpgrade(bd, 0, 1);
+    }
+
     public static int comprobarCuenta(Context context, String[] args){
-        SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQLiteClientes cliBDh = new SQLiteClientes(context, "DBAppCoches", null, 1);
         SQLiteDatabase bd = cliBDh.getWritableDatabase();
         Cursor cursor;
         if(args.length==1) {
@@ -70,7 +76,7 @@ public class SQLiteClientes extends SQLiteOpenHelper {
         SQL.close();
     }
     private boolean comprobarTabla(SQLiteDatabase bd){
-        Cursor cursor = bd.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'Clientes' ",null);
+        Cursor cursor = bd.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = 'Clientes' ", null);
         if (!cursor.moveToFirst())
         {
             return true;
@@ -90,5 +96,54 @@ public class SQLiteClientes extends SQLiteOpenHelper {
         nuevoRegistro.put("Telefono",Integer.valueOf(args[4]));
         bd.insert("Clientes", null, nuevoRegistro);
     }
+
+    public static Cliente cargarCliente(Context context,int idCliente){
+        SQLiteClientes cliBDh = new SQLiteClientes(context, "DBAppCoches", null, 1);
+        SQLiteDatabase bd = cliBDh.getReadableDatabase();
+        Cursor cursor =bd.rawQuery("SELECT * FROM Clientes WHERE ID = ' "+idCliente+" '", null);
+
+        int id,telefono;
+        String usuario,password,nombre,correo;
+        cursor.moveToFirst();
+        id=cursor.getInt(0);
+        usuario = cursor.getString(1);
+        password = cursor.getString(2);
+        nombre = cursor.getString(3);
+        correo = cursor.getString(4);
+        telefono=cursor.getInt(5);
+
+
+        return new Cliente(id,usuario,password,nombre,correo,telefono);
+    }
+
+    public static Cliente[] CargarArray(Context context){
+        SQLiteFacturas cliBDh = new SQLiteFacturas(context, "DBAppCoches", null, 1);
+        SQLiteDatabase bd = cliBDh.getReadableDatabase();
+        Cursor cursor =bd.rawQuery("SELECT * FROM Clientes",null);
+        cursor.moveToFirst();
+        Cliente[] listaClientes= new Cliente[cursor.getCount()];
+
+        int id,telefono;
+        String usuario,password,nombre,correo;
+
+        for(int i =0; i<listaClientes.length;i++){
+            id=cursor.getInt(0);
+            usuario = cursor.getString(1);
+            password = cursor.getString(2);
+            nombre = cursor.getString(3);
+            correo = cursor.getString(4);
+            telefono=cursor.getInt(5);
+
+
+            listaClientes[i]=new Cliente(id,usuario,password,nombre,correo,telefono);
+
+            cursor.moveToNext();
+        }
+        cursor.close();
+        bd.close();
+        return listaClientes;
+    }
+
+
 
 }

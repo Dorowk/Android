@@ -10,7 +10,8 @@
         android:text="Nombre"
         android:id="@+id/facturaNombre"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,33 +21,6 @@
         android:id="@+id/facturaTiempo"
         android:layout_below="@+id/facturaNombre"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Extras  "
-        android:id="@+id/textView"
-        android:layout_below="@+id/facturaTiempo"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="extras"
-        android:id="@+id/facturaExtras"
-        android:layout_below="@+id/facturaTiempo"
-        android:layout_toEndOf="@+id/textView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="€"
-        android:id="@+id/textView10"
-        android:layout_alignTop="@+id/facturaExtras"
-        android:layout_toEndOf="@+id/facturaExtras" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,17 +37,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Total  "
         android:id="@+id/textView12"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/facturaTiempo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/facturaTotal"
-        android:layout_below="@+id/textView"
         android:layout_toEndOf="@+id/textView12"
-        android:text="total" />
+        android:text="total"
+        android:layout_below="@+id/facturaTiempo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,17 +55,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="€"
         android:id="@+id/textView13"
-        android:layout_below="@+id/facturaExtras"
-        android:layout_toEndOf="@+id/facturaTotal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Seguro"
-        android:id="@+id/facturaSeguro"
-        android:layout_below="@+id/textView12"
-        android:layout_alignParentStart="true" />
+        android:layout_toEndOf="@+id/facturaTotal"
+        android:layout_below="@+id/facturaTiempo" />
 
     <ImageView
         android:layout_width="150dp"
@@ -101,5 +66,23 @@
         android:layout_alignBottom="@+id/textPrecio"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Cliente: "
+        android:id="@+id/textView17"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Cliente"
+        android:id="@+id/textCliente"
+        android:layout_toEndOf="@+id/textView17"
+        />
 
 </RelativeLayout>

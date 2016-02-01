@@ -4,23 +4,31 @@
     tools:context="com.example.mati.myapplication.MainActivity"
     >
     <item android:id="@+id/Opcion1"
-        android:title="Dibujo"
-        android:text="Dibujo">
-    </item>
-    <item android:id="@+id/Opcion2"
-        android:title="Acerca de"
-        android:text="AcercaD">
-    </item>
-    <item android:id="@+id/Opcion3"
-        android:title="Lista de Facturas"
-        android:text="ListaFacturas">
-    </item>
-    <item android:id="@+id/Opcion4"
-        android:title="Borrar"
-        android:text="Borrar">
-    </item>
-    <item android:id="@+id/Opcion5"
         android:title="Acceso Usuarios"
         android:text="Acceso">
     </item>
+    <item android:id="@+id/Opcion2"
+        android:title="Imagen"
+        android:text="Imagen">
+    </item>
+    <item android:id="@+id/Opcion3"
+        android:title="Acerca De"
+        android:text="AcercaDE">
+    </item>
+    <item android:id="@+id/Opcion4"
+        android:title="Lista Facturas"
+        android:text="Facturas">
+    </item>
+    <item android:id="@+id/Opcion5"
+        android:title="Lista Clientes"
+        android:text="Clientes"
+        android:visible="false">
+
+    </item>
+    <item android:id="@+id/Opcion6"
+        android:title="Borrar"
+        android:text="Borrar"
+        android:visible="false">
+    </item>
+
 </menu>

@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="NombreModelo"
         android:id="@+id/textModelo"
         android:layout_above="@+id/textView4"
         android:layout_alignLeft="@+id/textPrecioHora"
@@ -150,5 +151,44 @@
         android:id="@+id/buttonGuardar"
         android:layout_alignTop="@+id/textCoste"
         android:layout_alignEnd="@+id/imageView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usuario:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:id="@+id/textView19"
+        android:layout_alignTop="@+id/textExtra"
+        android:layout_toEndOf="@+id/textModelo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="usuario"
+        android:id="@+id/textUsuario"
+        android:layout_below="@+id/textView19"
+        android:layout_toEndOf="@+id/textModelo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ID:"
+        android:textStyle="bold"
+        android:id="@+id/textView20"
+        android:layout_alignTop="@+id/textTiempo"
+        android:layout_toEndOf="@+id/textModelo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textIDFactura"
+        android:text="id"
+        android:layout_alignTop="@+id/textView20"
+        android:layout_toEndOf="@+id/textView20" />
+
 
 </RelativeLayout>

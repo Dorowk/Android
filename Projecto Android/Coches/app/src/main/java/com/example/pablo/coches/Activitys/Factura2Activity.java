@@ -15,7 +15,7 @@ public class Factura2Activity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.factura_layout);
+        setContentView(R.layout.layout_factura);
 
         TextView modelo = (TextView) findViewById(R.id.textModelo);
         TextView precioHora = (TextView) findViewById(R.id.textPrecioHora);

@@ -9,11 +9,11 @@ import com.example.pablo.coches.R;
 /**
  * Created by Pablo on 30/12/2015.
  */
-public class AcercaDe extends Activity {
+public class AcercaDeActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acercade_layout);
+        setContentView(R.layout.layout_acerdade);
 
     }
 

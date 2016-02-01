@@ -19,9 +19,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pablo.coches.Objetos.Cliente;
 import com.example.pablo.coches.Objetos.Coche;
 import com.example.pablo.coches.Objetos.Factura;
 import com.example.pablo.coches.R;
+import com.example.pablo.coches.SQLiteClass.SQLiteClientes;
 import com.example.pablo.coches.SQLiteClass.SQLiteCoches;
 import com.example.pablo.coches.SQLiteClass.SQLiteFacturas;
 
@@ -35,18 +37,20 @@ public class ListarFacturaActivity extends Activity{
     Factura[] listaFacturas;
     ViewHolder holder;
     Context context;
+    int id;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listarfactura_layout);
-        listView = (ListView) findViewById(R.id.listaFactura);
+        setContentView(R.layout.layout_listview);
+        listView = (ListView) findViewById(R.id.listView);
         context = this;
 
         Comprobar();
+        id = getIntent().getExtras().getInt("ID",-1);
 
 
-        listaFacturas = SQLiteFacturas.CargarArray(context);
+        listaFacturas = SQLiteFacturas.CargarArray(context,id);
 
         AdaptadorFacturas adaptadorFacturas = new AdaptadorFacturas(this);
         listView.setAdapter(adaptadorFacturas);
@@ -60,7 +64,7 @@ public class ListarFacturaActivity extends Activity{
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        if (v.getId()==R.id.listaFactura) {
+        if (v.getId()==R.id.listView) {
             menu.setHeaderTitle("Menu de Opciones");
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_listafacturas, menu);
@@ -75,7 +79,9 @@ public class ListarFacturaActivity extends Activity{
                 createAndShowAlertDialog(info.position);
                 return true;
             case R.id.menuFacturaInfo:
-                Toast.makeText(context,"Info",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,InfoFactura_Activity.class);
+                intent.putExtra("ID",listaFacturas[info.position].getId());
+                startActivity(intent);
                 return true;
             default:
                 return true;
@@ -128,11 +134,10 @@ public class ListarFacturaActivity extends Activity{
 
                 holder=new ViewHolder();
 
+                holder.cliente=(TextView)columna.findViewById(R.id.textCliente);
                 holder.nombre =(TextView)columna.findViewById(R.id.facturaNombre);
                 holder.horas =(TextView)columna.findViewById(R.id.facturaTiempo);
-                holder.extra =(TextView)columna.findViewById(R.id.facturaExtras);
                 holder.total =(TextView)columna.findViewById(R.id.facturaTotal);
-                holder.seguro =(TextView)columna.findViewById(R.id.facturaSeguro);
                 holder.imagen =(ImageView)columna.findViewById(R.id.facturaImagen);
 
                 columna.setTag(holder);
@@ -140,17 +145,13 @@ public class ListarFacturaActivity extends Activity{
                 holder=(ViewHolder)columna.getTag();
             }
 
-            String seguroText;
-            if(listaFacturas[position].getSeguro())
-                seguroText = "Con Seguro";
-            else
-                seguroText= "Sin seguro";
             Coche coche= SQLiteCoches.cargarCoche(context, listaFacturas[position].getIdCoche());
+            Cliente cliente = SQLiteClientes.cargarCliente(context,listaFacturas[position].getIdCliente());
+
+            holder.cliente.setText(cliente.getNombre());
             holder.nombre.setText(coche.getNombre()+" "+coche.getMarca());
             holder.horas.setText(String.valueOf(listaFacturas[position].getTiempo()));
-            holder.extra.setText(String.valueOf(listaFacturas[position].getExtras()));
             holder.total.setText(String.valueOf(listaFacturas[position].getTotal()));
-            holder.seguro.setText(seguroText);
             holder.imagen.setImageResource(coche.getIdImagen());
 
 
@@ -159,7 +160,7 @@ public class ListarFacturaActivity extends Activity{
     }
 
     class ViewHolder{
-        TextView nombre,horas,extra,total,seguro;
+        TextView nombre,horas,total,cliente;
         ImageView imagen;
     }
 }

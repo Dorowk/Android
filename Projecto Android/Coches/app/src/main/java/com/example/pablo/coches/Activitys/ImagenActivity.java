@@ -15,11 +15,11 @@ import com.example.pablo.coches.R;
 /**
  * Created by Pablo on 30/12/2015.
  */
-public class Imagen extends Activity {
+public class ImagenActivity extends Activity {
     private Dibujo dibujo;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.imagen_layout);
+        setContentView(R.layout.layout_imagen);
         dibujo = (Dibujo) findViewById(R.id.area_dibujo);
         registerForContextMenu(dibujo);
     }

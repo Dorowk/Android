@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pablo.coches.Objetos.Cliente;
 import com.example.pablo.coches.Objetos.Coche;
 import com.example.pablo.coches.Objetos.Factura;
 import com.example.pablo.coches.R;
+import com.example.pablo.coches.SQLiteClass.SQLiteClientes;
 import com.example.pablo.coches.SQLiteClass.SQLiteCoches;
 import com.example.pablo.coches.SQLiteClass.SQLiteFacturas;
 
@@ -26,7 +28,7 @@ public class FacturaActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.factura_layout);
+        setContentView(R.layout.layout_factura);
 
         TextView modelo = (TextView) findViewById(R.id.textModelo);
         TextView precioHora = (TextView) findViewById(R.id.textPrecioHora);
@@ -34,6 +36,9 @@ public class FacturaActivity extends Activity {
         TextView tiempo = (TextView) findViewById(R.id.textTiempo);
         TextView seguro = (TextView) findViewById(R.id.textSeguro);
         TextView total = (TextView) findViewById(R.id.textCoste);
+        TextView usuario = (TextView) findViewById(R.id.textUsuario);
+        TextView id = (TextView) findViewById(R.id.textIDFactura);
+
         ImageView imagen = (ImageView) findViewById(R.id.imageView2);
         Button button = (Button) findViewById(R.id.buttonGuardar);
 
@@ -42,7 +47,11 @@ public class FacturaActivity extends Activity {
 
         factura = (Factura) bundle.getSerializable("Factura");
         Coche coche= SQLiteCoches.cargarCoche(context, factura.getIdCoche());
+        Cliente cliente = SQLiteClientes.cargarCliente(context, factura.getIdCliente());
 
+
+        usuario.setText(cliente.getNombre());
+        id.setText(String.valueOf(cliente.getId()));
         modelo.setText(coche.getNombre()+coche.getMarca());
         precioHora.setText(coche.getPrecio() + "€");
         extras.setText(factura.getExtras() + "€");

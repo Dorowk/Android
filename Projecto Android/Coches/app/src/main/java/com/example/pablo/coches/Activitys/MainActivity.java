@@ -2,6 +2,7 @@ package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.example.pablo.coches.Objetos.Coche;
 import com.example.pablo.coches.Objetos.Factura;
 import com.example.pablo.coches.R;
+import com.example.pablo.coches.SQLiteClass.SQLiteClientes;
 import com.example.pablo.coches.SQLiteClass.SQLiteCoches;
 import com.example.pablo.coches.SQLiteClass.SQLiteFacturas;
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     ViewHolder holder;
 
     boolean opcionSeguro;
-    int extras, total, idImagen, idUsuario=0;
+    int extras, total, idImagen, idUsuario=-1;
 
     Context context;
 
@@ -61,8 +63,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setTitle("Alquiler de Coches");
         context = this;
-        alertUsarios();
+
+        cargarUsuario();
         CargarDatos();
+
+        if(idUsuario==-1)
+            alertUsarios();
+
+
         listaCoches = SQLiteCoches.CargarArray(context);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -194,6 +202,11 @@ public class MainActivity extends AppCompatActivity {
         return total;
     }
 
+    private void cargarUsuario(){
+        idUsuario=getIntent().getIntExtra("ID",-1);
+
+    }
+
     private void alertUsarios() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Conectarse");
@@ -208,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("Anonimo", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Toast.makeText(context,"Has accedido como anonimo",Toast.LENGTH_SHORT).show();
-                idUsuario = 0;
+                idUsuario = 2;
                 dialog.dismiss();
             }
         });
@@ -231,32 +244,47 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(idUsuario==1){
+            MenuItem item = menu.findItem(R.id.Opcion5);
+            MenuItem item2 = menu.findItem(R.id.Opcion6);
+            item.setVisible(true);
+            item2.setVisible(true);
+        }
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.Opcion1:
-                Intent dibujo = new Intent(this, Imagen.class);
-                startActivity(dibujo);
+                Intent cliente = new Intent(context, ClienteActivity.class);
+                startActivity(cliente);
                 return true;
             case R.id.Opcion2:
-                Intent acerca = new Intent(this, AcercaDe.class);
-                startActivity(acerca);
+                Intent dibujo = new Intent(this, ImagenActivity.class);
+                startActivity(dibujo);
                 return true;
             case R.id.Opcion3:
-                Intent facturas = new Intent(this,ListarFacturaActivity.class);
-                startActivity(facturas);
+                Intent acerca = new Intent(this, AcercaDeActivity.class);
+                startActivity(acerca);
                 return true;
             case R.id.Opcion4:
-                SQLiteCoches.onDelete(context);
-                SQLiteFacturas.recargarBD(context);
-                refresh();
+                Intent facturas = new Intent(this,ListarFacturaActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("ID",idUsuario);
+                facturas.putExtras(bundle);
+                startActivity(facturas);
                 return true;
             case R.id.Opcion5:
-                Intent Cliente = new Intent(context, ClienteActivity.class);
-                startActivity(Cliente);
+                Intent clientes = new Intent(this,ListarClientesActivity.class);
+                startActivity(clientes);
                 return true;
+            case R.id.Opcion6:
+                SQLiteCoches.onDelete(context);
+                SQLiteFacturas.recargarBD(context);
+                SQLiteClientes.recargarBD(context);
+                refresh();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -265,12 +293,13 @@ public class MainActivity extends AppCompatActivity {
 
     private Factura crearFactura(){
         int aux1 = Integer.valueOf(holder.id.getText().toString());
-        int aux2 = Integer.valueOf(tiempo.getText().toString());
-        int aux3 = extras;
-        int aux4 = total;
-        boolean aux5 = opcionSeguro;
+        int aux2 = idUsuario;
+        int aux3 = Integer.valueOf(tiempo.getText().toString());
+        int aux4 = extras;
+        int aux5 = total;
+        boolean aux6 = opcionSeguro;
 
-        return new Factura(aux1,aux2,aux3,aux4,aux5);
+        return new Factura(aux1,aux2,aux3,aux4,aux5,aux6);
     }
 
     /*private Factura2 crearFactura2(){
@@ -322,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 columna = inflater.inflate(R.layout.spinner_coches,null);
                 holder=new ViewHolder();
-                holder.id = (TextView) columna.findViewById(R.id.textID);
+                holder.id = (TextView) columna.findViewById(R.id.textIDCoches);
                 holder.nombre = (TextView) columna.findViewById(R.id.textNombre);
                 holder.marca = (TextView) columna.findViewById(R.id.textMarca);
                 holder.precio = (TextView) columna.findViewById(R.id.textPrecio);

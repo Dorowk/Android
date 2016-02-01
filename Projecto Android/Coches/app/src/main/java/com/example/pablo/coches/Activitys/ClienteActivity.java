@@ -23,7 +23,7 @@ public class ClienteActivity extends Activity {
     Context context;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.clientes_layout);
+        setContentView(R.layout.layout_clientes);
         context=this;
 
         comprobar();
@@ -54,8 +54,13 @@ public class ClienteActivity extends Activity {
         String usuario = user.getText().toString(), password = pass.getText().toString();
         String[] args = new String[]{usuario,password};
         int id = SQLiteClientes.comprobarCuenta(context, args);
-        if (id!=0)
-            Toast.makeText(context,String.valueOf(id),Toast.LENGTH_SHORT).show();
+        if (id!=0){
+            Intent cliente = new Intent(context, MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("ID",id);
+            cliente.putExtras(bundle);
+            startActivity(cliente);
+        }
         else
             Toast.makeText(context,"Usuario o contraseña incorrectos \n¿Has creado la cuenta?",Toast.LENGTH_SHORT).show();
     }

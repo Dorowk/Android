@@ -2,6 +2,7 @@ package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,7 +28,7 @@ public class NewClientActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newclient_layout);
+        setContentView(R.layout.layout_newclient);
         context = this;
 
         usuario = (EditText)findViewById(R.id.editUsu2);
@@ -42,9 +43,11 @@ public class NewClientActivity extends Activity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validar())
+                if(validar()) {
                     cargarDatos();
-                else
+                    Intent Cliente = new Intent(context, ClienteActivity.class);
+                    startActivity(Cliente);
+                }else
                     Toast.makeText(context,"Datos no validos. Asegurate que los campos " +
                             "no estan vacios y los datos son validos",Toast.LENGTH_SHORT).show();
             }
@@ -58,8 +61,6 @@ public class NewClientActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
             }
 
             @Override
@@ -94,8 +95,6 @@ public class NewClientActivity extends Activity {
     private boolean comprobarTexto(){
         if (usuario.getText().toString().isEmpty()){
             estado.setText("");
-            usuario.setTextColor(Color.GRAY);
-            usuario.setBackgroundColor(Color.GRAY);
             return false;
         }else if(usuario.getText().toString().length()<=4){
             estado.setText("El usuario debe tener una longitud de 5 o mas");

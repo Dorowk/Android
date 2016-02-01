@@ -27,10 +27,10 @@
             android:label="Factura">
         </activity>
         <activity
-            android:name=".Activitys.AcercaDe"
+            android:name=".Activitys.AcercaDeActivity"
             android:label="AcercaDe">
         </activity>
-        <activity android:name=".Activitys.Imagen"
+        <activity android:name=".Activitys.ImagenActivity"
             android:label="Dibujo">
         </activity>
         <activity android:name=".Activitys.ListarFacturaActivity"
@@ -41,6 +41,12 @@
         </activity>
         <activity android:name=".Activitys.NewClientActivity"
             android:label="Crear Cliente">
+        </activity>
+        <activity android:name=".Activitys.ListarClientesActivity"
+            android:label="Lista Clientes">
+        </activity>
+        <activity android:name=".Activitys.InfoFactura_Activity"
+            android:label="Info Factura">
         </activity>
     </application>
 
