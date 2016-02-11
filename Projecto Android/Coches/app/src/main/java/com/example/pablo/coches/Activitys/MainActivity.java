@@ -2,7 +2,6 @@ package com.example.pablo.coches.Activitys;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -283,6 +282,10 @@ public class MainActivity extends AppCompatActivity {
                 SQLiteFacturas.recargarBD(context);
                 SQLiteClientes.recargarBD(context);
                 refresh();
+                return true;
+            case R.id.Opcion7:
+                Intent noticias = new Intent(this,NoticiasActivity.class);
+                startActivity(noticias);
                 return true;
 
             default:

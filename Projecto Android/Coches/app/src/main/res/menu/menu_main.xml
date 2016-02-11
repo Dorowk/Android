@@ -30,5 +30,9 @@
         android:text="Borrar"
         android:visible="false">
     </item>
+    <item android:id="@+id/Opcion7"
+        android:title="Noticias"
+        android:text="Noticias">
+    </item>
 
 </menu>

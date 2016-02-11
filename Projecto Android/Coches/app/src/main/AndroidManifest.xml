@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pablo.coches">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,34 +23,35 @@
         </activity>
         <activity
             android:name=".Activitys.FacturaActivity"
-            android:label="Factura">
-        </activity>
+            android:label="Factura"></activity>
         <activity
             android:name=".Activitys.Factura2Activity"
-            android:label="Factura">
-        </activity>
+            android:label="Factura"></activity>
         <activity
             android:name=".Activitys.AcercaDeActivity"
-            android:label="AcercaDe">
-        </activity>
-        <activity android:name=".Activitys.ImagenActivity"
-            android:label="Dibujo">
-        </activity>
-        <activity android:name=".Activitys.ListarFacturaActivity"
-            android:label="Lista de facturas">
-        </activity>
-        <activity android:name=".Activitys.ClienteActivity"
-            android:label="Iniciar Sesion">
-        </activity>
-        <activity android:name=".Activitys.NewClientActivity"
-            android:label="Crear Cliente">
-        </activity>
-        <activity android:name=".Activitys.ListarClientesActivity"
-            android:label="Lista Clientes">
-        </activity>
-        <activity android:name=".Activitys.InfoFactura_Activity"
-            android:label="Info Factura">
-        </activity>
+            android:label="AcercaDe"></activity>
+        <activity
+            android:name=".Activitys.ImagenActivity"
+            android:label="Dibujo"></activity>
+        <activity
+            android:name=".Activitys.ListarFacturaActivity"
+            android:label="Lista de facturas"></activity>
+        <activity
+            android:name=".Activitys.ClienteActivity"
+            android:label="Iniciar Sesion"></activity>
+        <activity
+            android:name=".Activitys.NewClientActivity"
+            android:label="Crear Cliente"></activity>
+        <activity
+            android:name=".Activitys.ListarClientesActivity"
+            android:label="Lista Clientes"></activity>
+        <activity
+            android:name=".Activitys.InfoFactura_Activity"
+            android:label="Info Factura"></activity>
+        <activity
+            android:name=".Activitys.NoticiasActivity"
+            android:label="@string/title_activity_noticias"></activity>
+
     </application>
 
 </manifest>
