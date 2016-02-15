@@ -148,11 +148,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Tiempo  "
+        android:text="Tiempo:  "
         android:id="@+id/textView28"
+        android:layout_marginTop="29dp"
         android:layout_below="@+id/textView27"
-        android:layout_toStartOf="@+id/infoSeguro"
-        android:layout_marginTop="28dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="tiempo"
         android:id="@+id/infoTiempo"
-        android:layout_alignTop="@+id/textView28"
+        android:layout_above="@+id/textView29"
         android:layout_toEndOf="@+id/textView28" />
 
     <TextView
@@ -176,7 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Total Extras "
+        android:text="Total Extras: "
         android:id="@+id/textView29"
         android:layout_below="@+id/textView28"
         android:layout_alignParentStart="true" />
@@ -212,7 +212,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Seguro "
+        android:text="Seguro: "
         android:id="@+id/textView33"
         android:layout_below="@+id/textView29"
         android:layout_alignParentStart="true" />
@@ -244,14 +244,15 @@
         android:layout_alignTop="@+id/infoPrecio"
         android:layout_toEndOf="@+id/infoPrecio" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonBorrar"
         android:src="@drawable/basura"
+        android:layout_marginBottom="31dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/infoImagen"
-        android:layout_marginBottom="26dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="38dp" />
 
 
 </RelativeLayout>

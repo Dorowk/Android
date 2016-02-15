@@ -35,7 +35,7 @@ public class InfoFactura_Activity extends Activity {
         context = this;
         TextView usuario,idCliente,telefono,correo,nombre,modelo,marca,tiempo,extra,total,seguro;
         ImageView imagen;
-        ImageButton button = (ImageButton)findViewById(R.id.buttonBorrar);
+        ImageView button = (ImageView)findViewById(R.id.buttonBorrar);
         final Factura factura= SQLiteFacturas.CargarFactura(context,idCli);
         Coche coche= SQLiteCoches.cargarCoche(context, factura.getIdCoche());
         Cliente cliente = SQLiteClientes.cargarCliente(context, factura.getIdCliente());
